@@ -14,7 +14,7 @@ Clone this git repository
 Usage
 -----
 ### Try it out
-Pycrastinate can be used out of the box for git repositories with its default configuration for python and ruby files. It just needs a recent version of `git` (tested with 1.8.0+). Copy it as a sibling to your other git repos and type `python pycrastinate.py`.
+Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory.
 
 ### Tune it
 Edit `config.py` to your liking. Change the `init_path` for whichever path holds the files you want to analyse, the `file_sufixes` to include only those that you want, the (case-insensitive) `tokens` that should be considered, etc.
@@ -88,7 +88,7 @@ The dictionary keys are the module names.
 """
 data = {
     "gather_git_blames_shell": {
-        "init_path": "../",
+        "init_path": "./",
         "tokens": {
             "todo": 0,
             "fixme": 1,
@@ -98,11 +98,11 @@ data = {
     },
     "filter_by_age": {
         "oldest": 180,
-        "earliest": 15,
+        "earliest": -1,
     },
     "raise_if_present": {
         "case-sensitive": True,
-        "token": ["fixme"],
+        "token": ["XXX"],
     },
 }
 ```

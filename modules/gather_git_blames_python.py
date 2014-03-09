@@ -25,7 +25,10 @@ def gather_git_blames_python(config, *args):
         if will_be_processed:
             blame = subprocess.Popen("git blame -e {}".format(code_file),
                                      stdout=subprocess.PIPE, shell=True)
-            blame = blame.stdout.read().split("\n")[count]
+            blame = blame.stdout.read()
+            if not blame:
+                return
+            blame = blame.split("\n")[count]
             email = re.search(regex["email"], blame)
             email = email.group(1) if email else config["default_email"] or u""
             date = re.search(regex["date"], blame).groups()

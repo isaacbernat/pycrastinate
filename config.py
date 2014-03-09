@@ -12,8 +12,8 @@ pipeline = {
 }
 
 data = {
-    "gather_git_blames_shell": {
-        "init_path": "../",
+    "gather_git_blames_python": {
+        "init_path": "./",
         "tokens": {
             "todo": 0,
             "fixme": 1,
@@ -23,10 +23,10 @@ data = {
     },
     "filter_by_age": {
         "oldest": 180,
-        "earliest": 15,
+        "earliest": -1,
     },
     "raise_if_present": {
         "case-sensitive": True,
-        "token": ["fixme"],
+        "token": ["XXX"],
     },
 }
