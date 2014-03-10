@@ -77,7 +77,7 @@ It also performs both gather and inspect steps at once.
     100: gather_git_blames_shell,
     400: filter_by_age,
     500: raise_if_present,
-    600: aggregate_by_email,
+    600: aggregate_by,
     700: execute_actions,
 }
 
@@ -104,6 +104,9 @@ data = {
         "case-sensitive": True,
         "token": ["XXX"],
     },
+    "aggregate_by": {
+        "keys": ["token"],
+    }
 }
 ```
 
