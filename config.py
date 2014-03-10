@@ -31,5 +31,6 @@ data = {
     },
     "aggregate_by": {
         "keys": ["token"],
+        "case-sensitive": False,
     }
 }
