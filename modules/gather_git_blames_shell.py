@@ -8,20 +8,20 @@ def gather_git_blames_shell(config, *args):
         #Sometimes commits have a "previous" line between summary and filename.
         #Sometimes they have not -- porcelain format seems to be inconsistent.
         return (line for line in blame_lines
-                if not re.match(regex["previous_re"], line))
+                if not re.match(regex["previous_or_boundary_re"], line))
 
     def prepare_regexes():
         raw_tokens_re = u"|".join(config["tokens"].keys())
         tokens_compiled = re.compile(u"({})".format(
             raw_tokens_re), re.IGNORECASE)
         line_count_re = re.compile("[0-9a-f]{40} \d+ (\d+)")
-        previous_re = re.compile("previous [0-9a-f]{40}")
+        previous_re = re.compile("(previous [0-9a-f]{40})|boundary")
 
         return {
             "raw_tokens_re": raw_tokens_re,
             "tokens_compiled": tokens_compiled,
             "line_count_re": line_count_re,
-            "previous_re": previous_re,
+            "previous_or_boundary_re": previous_re,
             }
 
     def get_blames_lines():
