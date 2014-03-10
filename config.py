@@ -8,7 +8,7 @@ pipeline = {
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
-    700: execute_actions,
+    700: print_summary,
 }
 
 data = {
