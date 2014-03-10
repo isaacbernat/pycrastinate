@@ -5,7 +5,7 @@ def nested_print(d, depth=0):
             print("{}  {}  {}  {}  {}  {}".format(l["token"], l["date"], l["email"], l["line_count"], l["file_path"], l["code"])[:80])
     else:
         for k, v in d.items():
-            print(k)
+            print("         -------- {} --------".format(k))
             nested_print(v, depth+1)
 
 
