@@ -105,8 +105,8 @@ data = {
         "token": ["XXX"],
     },
     "aggregate_by": {
-        "keys": ["token"],
-        "case-sensitive": True,
+        "keys": ["token", "file_path"],
+        "case-sensitive": False,
     }
 }
 ```

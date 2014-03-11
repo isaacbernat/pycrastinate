@@ -30,7 +30,7 @@ data = {
         "token": ["XXX"],
     },
     "aggregate_by": {
-        "keys": ["token"],
+        "keys": ["token", "file_path"],
         "case-sensitive": False,
     }
 }

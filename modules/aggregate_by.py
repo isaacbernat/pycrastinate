@@ -1,13 +1,20 @@
 from collections import defaultdict
 
 
+def aggregate_keys(list_data, keys, config):
+    if not keys:
+        return list_data
+
+    agg = defaultdict(list)
+    for d in list_data:
+        val = d[keys[0]] if config["case-sensitive"]\
+            else str(d[keys[0]]).upper()
+        agg[val].append(d)
+    return {k: aggregate_keys(v, keys[1:], config) for k, v in agg.items()}
+
+
 def aggregate_by(config, data):
     """if case-sensitive is not set it defaults to False"""
     config = config.get(__name__.split(".")[-1], {})
-    case_sensitive = config.pop("case-sensitive", False)
-    key = config["keys"][0]
-    aggregated = defaultdict(list)
-    for d in data:
-        val = d[key] if case_sensitive else str(d[key]).upper()
-        aggregated[val].append(d)
-    return aggregated
+    config["case-sensitive"] = config.get("case-sensitive", False)
+    return aggregate_keys(data, config["keys"], config)
