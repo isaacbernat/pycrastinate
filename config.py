@@ -32,5 +32,10 @@ data = {
     "aggregate_by": {
         "keys": ["token", "file_path"],
         "case-sensitive": False,
+    },
+    "print_summary": {
+        "indent": "  ",
+        "column_separator": "  ",
+        "max_width": 80,
     }
 }
