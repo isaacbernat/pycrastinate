@@ -8,8 +8,8 @@ log_msg = {
 
 
 def print_log(func, params):
-    log_func_info = log_msg["name"] + func.func_name
-    print log_msg["mod_start"].format(datetime.now(), log_func_info)
+    log_func_info = log_msg["name"] + func.__name__
+    print(log_msg["mod_start"].format(datetime.now(), log_func_info))
     results = func(*params)
-    print log_msg["mod_finish"].format(datetime.now(), log_func_info)
+    print(log_msg["mod_finish"].format(datetime.now(), log_func_info))
     return results

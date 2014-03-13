@@ -45,12 +45,12 @@ def gather_git_blames_shell(config, *args):
         one_liner = " | ".join([grep, cut, awk, sed, xargs, cat])
 
         return subprocess.Popen(one_liner, stdout=subprocess.PIPE, shell=True)\
-            .stdout.read().split("\n")
+            .stdout.read().decode().split("\n")
 
     def process_blame_output(blames_lines):
         normalised_lines = list(normalise(blame_lines))
         #TODO try to use a generator instead of iterating over xrange list
-        for commit_line in xrange(0, len(normalised_lines)-1, 12):
+        for commit_line in range(0, len(normalised_lines)-1, 12):
             commit_hash = normalised_lines[commit_line]
             line_count = re.match(regex["line_count_re"],
                                   normalised_lines[commit_line]).group(1)
