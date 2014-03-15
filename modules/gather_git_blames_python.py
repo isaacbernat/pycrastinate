@@ -45,12 +45,9 @@ def gather_git_blames_python(config, *args):
 
     config = config[__name__.split(".")[-1]]
     regex = prepare_regexes()
-    init_dir = os.getcwd()
-    os.chdir(config["init_path"])
-    for code_file in list_files():
+    for code_file in list_files(config["init_path"]):
         with codecs.open(code_file, 'rb', "utf-8") as cf:
             for count, content in enumerate(cf):
                 do = process_blame_line(re.match(regex["blame"], content))
                 if do:
                     yield do
-    os.chdir(init_dir)

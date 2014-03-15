@@ -26,7 +26,7 @@ class TestGatherGitBlames(object):
     def filtered_sufixes(self):
         def filter_sufixes():
             data = run(self.pipeline, self.config)
-            return [d["file_path"][-3:] for d in data]
+            return [d["file_path"] for d in data]
 
         sufixes = filter_sufixes()
         self.config[self.module]["file_sufixes"] = [".py"]
@@ -34,9 +34,8 @@ class TestGatherGitBlames(object):
         sub_sufixes_python = [s for s in sufixes if s[-3:] == ".py"]
 
         nt.assert_true(len(sufixes) > len(sub_sufixes_python))
-        nt.assert_equals(len(sufixes_py), len(sub_sufixes_python))
-        for sp in sufixes_py:
-            nt.assert_equals(sp, ".py")
+        nt.assert_true(len(sufixes_py) > 0)
+        nt.assert_equals(sorted(sufixes_py), sorted(sub_sufixes_python))
 
     def filtered_tokens(self):
         def filter_tokens():
@@ -49,9 +48,8 @@ class TestGatherGitBlames(object):
         sub_tokens_todo = [t for t in tokens if t == "todo"]
 
         nt.assert_true(len(tokens) > len(sub_tokens_todo))
-        nt.assert_equals(len(tokens_todo), len(sub_tokens_todo))
-        for td in tokens_todo:
-            nt.assert_equals(td, "todo")
+        nt.assert_true(len(tokens_todo) > 0)
+        nt.assert_equals(sorted(tokens_todo), sorted(sub_tokens_todo))
 
 
 class TestGatherGitBlamesShell(TestGatherGitBlames):

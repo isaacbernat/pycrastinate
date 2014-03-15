@@ -39,7 +39,7 @@ def gather_git_blames_shell(config, *args):
             'for(i=0; i<length(path)-1; i++)(paths=paths "/" path[i]);',
             'print "-C " paths "/ blame --line-porcelain -L" $2"," $2 " " fn',
             "}'"])
-        sed = 'sed s"/\/\///"'
+        sed = 'sed s"/\/\///; s/\:.*//"'
         xargs = 'xargs -P4 -n6 git'
         cat = 'cat'
         one_liner = " | ".join([grep, cut, awk, sed, xargs, cat])
