@@ -1,3 +1,4 @@
+from .gather_files_python import gather_files_python
 from .gather_git_blames_shell import gather_git_blames_shell
 from .gather_git_blames_python import gather_git_blames_python
 from .filter_by_age import filter_by_age
