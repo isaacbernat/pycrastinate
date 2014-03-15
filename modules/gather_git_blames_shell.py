@@ -27,8 +27,12 @@ def gather_git_blames_shell(config, *args):
     def get_blames_lines():
         include_sufixes = u'" --include "*{}"'.format(u'" --include "*'.join(
             config["file_sufixes"])) if config["file_sufixes"] else '"'
-        grep = 'grep -E -n -i "{}{} -R {}'.format(
-            regex["raw_tokens_re"], include_sufixes, config["init_path"])
+
+        case_sensitive = config.get("case-sensitive", False)
+        insensitive = "" if case_sensitive else "-i"
+        grep = 'grep -E -n {} "{}{} -R {}'.format(
+            insensitive, regex["raw_tokens_re"],
+            include_sufixes, config["init_path"])
         cut = 'cut -d: -f1,2'
         awk = " ".join([
             "awk '{",

@@ -9,8 +9,8 @@ class TestGatherGitBlames(object):
         self.config = {self.module: {
             "init_path": "./tests/aux_files",
             "tokens": {
-                "todo": 0,
-                "fixme": 1,
+                "TODO": 0,
+                "FIXME": 1,
             },
             "file_sufixes": [".py", ".rb"],
             "default_email": "tech@wrapp.com",
@@ -51,6 +51,20 @@ class TestGatherGitBlames(object):
         nt.assert_true(len(tokens_todo) > 0)
         nt.assert_equals(sorted(tokens_todo), sorted(sub_tokens_todo))
 
+    def case_sensitivity(self):
+        def get_tokens():
+            data = run(self.pipeline, self.config)
+            return [d["token"] for d in data]
+
+        tokens = get_tokens()
+        self.config[self.module]["case-sensitive"] = True
+        tokens_upper = get_tokens()
+        sub_tokens_upper = [t for t in tokens if t.upper() == t]
+
+        nt.assert_true(len(tokens) > len(sub_tokens_upper))
+        nt.assert_true(len(tokens_upper) > 0)
+        nt.assert_equals(sorted(tokens_upper), sorted(sub_tokens_upper))
+
 
 class TestGatherGitBlamesShell(TestGatherGitBlames):
     pipeline = {100: gather_git_blames_shell}
@@ -67,6 +81,9 @@ class TestGatherGitBlamesShell(TestGatherGitBlames):
     def test_filtered_tokens(self):
         self.filtered_tokens()
 
+    def test_case_sensitivity(self):
+        self.case_sensitivity()
+
 
 class TestGatherGitBlamesPython(TestGatherGitBlames):
     pipeline = {100: gather_git_blames_python}
@@ -81,3 +98,6 @@ class TestGatherGitBlamesPython(TestGatherGitBlames):
 
     def test_filtered_tokens(self):
         self.filtered_tokens()
+
+    def test_case_sensitivity(self):
+        self.case_sensitivity()

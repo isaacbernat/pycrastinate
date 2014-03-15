@@ -9,11 +9,13 @@ def gather_git_blames_python(config, *args):
     def prepare_regexes():
         tokens_re = u"|".join(config["tokens"].keys())
         sufix_re = u"|".join(config["file_sufixes"])
+        case_sensitive = config.get("case-sensitive", False)
+        flags = 0 if case_sensitive else re.IGNORECASE
         return {
-            "blame": re.compile(u".*({})".format(tokens_re), re.IGNORECASE),
+            "blame": re.compile(u".*({})".format(tokens_re), flags),
             "date": re.compile(u"(\d{4})-(\d{2})-(\d{2})"),
             "email": re.compile(u"<(.*@.*)>"),
-            "token": re.compile(u"({})".format(tokens_re), re.IGNORECASE),
+            "token": re.compile(u"({})".format(tokens_re), flags),
             "sufix": re.compile(u".*({})$".format(sufix_re), re.IGNORECASE),
         }
 

@@ -93,6 +93,7 @@ data = {
             "todo": 0,
             "fixme": 1,
         },
+        "case-sensitive": False,
         "file_sufixes": [".py", ".rb"],
         "default_email": "default@email.com",
         "include_committer": False,
