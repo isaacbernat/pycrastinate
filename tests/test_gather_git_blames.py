@@ -60,7 +60,7 @@ class TestGatherGitBlamesShell(TestGatherGitBlames):
 
     def test_gathered_fields(self):
         fields = ["commit_hash", "code", "date", "email", "file_path",
-                  "line_count", "token", "summary"]
+                  "line_count", "token", "summary", "author", "author-tz"]
         self.gathered_fields(fields)
 
     def test_filtered_sufixes(self):

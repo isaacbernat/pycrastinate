@@ -45,33 +45,83 @@ def gather_git_blames_shell(config, *args):
         one_liner = " | ".join([grep, cut, awk, sed, xargs, cat])
 
         return subprocess.Popen(one_liner, stdout=subprocess.PIPE, shell=True)\
-            .stdout.read().decode().split("\n")
+            .stdout.read().decode("utf-8").split("\n")
 
     def process_blame_output(blames_lines):
-        normalised_lines = list(normalise(blame_lines))
-        #TODO try to use a generator instead of iterating over xrange list
-        for commit_line in range(0, len(normalised_lines)-1, 12):
-            commit_hash = normalised_lines[commit_line]
-            line_count = re.match(regex["line_count_re"],
-                                  normalised_lines[commit_line]).group(1)
-            email = normalised_lines[commit_line+2][len("author-mail <"):-1]
-            date = datetime.date.fromtimestamp(
-                int(normalised_lines[commit_line+3][len("author-time "):]))
-            summary = normalised_lines[commit_line+9][len("summary "):]
-            file_path = normalised_lines[commit_line+10][len("filename "):]
-            code = normalised_lines[commit_line+11].strip()
-            token = re.search(regex["tokens_compiled"], code).group()
-
-            yield {
-                "commit_hash": commit_hash,
-                "code": code,
-                "date": date,
-                "email": email,
-                "file_path": file_path,
-                "line_count": line_count,
-                "token": token,
-                "summary": summary,
+        def initialise_length_dict(include_committer):
+            length = {
+                "auth": len("author "),
+                "mail": len("author-mail <"),
+                "date": len("author-time "),
+                "tz": len("author-tz "),
+                "summ": len("summary "),
+                "fn": len("filename "),
             }
+            if include_committer:
+                length.update({
+                    "committer": len("committer "),
+                    "committer-mail": len("committer-mail <"),
+                    "commit-time": len("committer-time "),
+                    "committer-tz": len("author-tz "),
+                })
+            return length
+
+        def process_commit_lines():
+            hash_line = next(commit_lines)
+            line_count = re.match(line_count_re, hash_line)
+            if not line_count:
+                return
+            author = next(commit_lines)[length["auth"]:]
+            email = next(commit_lines)[length["mail"]:-1]
+            int_date = int(next(commit_lines)[length["date"]:])
+            date = datetime.date.fromtimestamp(int_date)
+            author_tz = next(commit_lines)[length["tz"]:]
+            if include_committer:
+                committer = next(commit_lines)[length["committer"]:]
+                committer_mail =\
+                    next(commit_lines)[length["committer-mail"]:-1]
+                int_commit_time =\
+                    int(next(commit_lines)[length["commit-time"]:])
+                committer_date = datetime.date.fromtimestamp(int_commit_time)
+                committer_tz = next(commit_lines)[length["committer-tz"]:]
+            else:
+                for i in range(4):
+                    next(commit_lines)
+            summary = next(commit_lines)[length["summ"]:]
+            file_path = next(commit_lines)[length["fn"]:]
+            code = next(commit_lines).strip()
+            token = re.search(tokens_compiled, code)
+            if token:
+                metadata_line = {
+                    "author": author,
+                    "author-tz": author_tz,
+                    "commit_hash": hash_line,
+                    "code": code,
+                    "date": date,
+                    "email": email,
+                    "file_path": file_path,
+                    "line_count": line_count.group(1),
+                    "token": token.group(),
+                    "summary": summary,
+                }
+                if include_committer:
+                    metadata_line.update({
+                        "commit-author": committer,
+                        "commit-emailhash": committer_mail,
+                        "commit-date": committer_date,
+                        "commit-tz": committer_tz,
+                        })
+                return metadata_line
+
+        include_committer = config.get("include_committer", False)
+        line_count_re = regex["line_count_re"]
+        tokens_compiled = regex["tokens_compiled"]
+        length = initialise_length_dict(include_committer)
+        commit_lines = normalise(blame_lines)
+        while commit_lines:
+            metadata_line = process_commit_lines()
+            if metadata_line:
+                yield metadata_line
 
     config = config[__name__.split(".")[-1]]
     regex = prepare_regexes()

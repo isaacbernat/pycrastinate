@@ -95,6 +95,7 @@ data = {
         },
         "file_sufixes": [".py", ".rb"],
         "default_email": "default@email.com",
+        "include_committer": False,
     },
     "filter_by_age": {
         "oldest": 180,
