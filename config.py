@@ -9,6 +9,7 @@ pipeline = {
     500: raise_if_present,
     600: aggregate_by,
     700: print_summary,
+    900: process_results,
 }
 
 data = {
@@ -18,8 +19,10 @@ data = {
             "todo": 0,
             "fixme": 1,
         },
+        "case-sensitive": False,
         "file_sufixes": [".py", ".rb"],
         "default_email": "default@email.com",
+        "include_committer": False,
     },
     "filter_by_age": {
         "oldest": 180,

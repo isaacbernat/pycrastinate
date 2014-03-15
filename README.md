@@ -65,6 +65,7 @@ We set our pipeline strategy. Note: some modules may perform multiple steps
 6.- aggregate results             -> return line_metadata (aggregated)
 7.- generate report/render        -> return report
 8.- deliver/notify/act on report  -> return report (unaltered)
+9.- process results (generators)  -> return input as list
 """
 
 pipeline = {
@@ -79,6 +80,7 @@ It also performs both gather and inspect steps at once.
     500: raise_if_present,
     600: aggregate_by,
     700: print_summary,
+    900: process_results,
 }
 
 #----- data section -----
