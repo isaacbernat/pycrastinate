@@ -5,7 +5,7 @@ import re
 import codecs
 
 
-def gather_git_blames_python(config, *args):
+def gather_git_blames(config, *args):
     def prepare_regexes():
         tokens_re = u"|".join(config["tokens"].keys())
         sufix_re = u"|".join(config["file_sufixes"])

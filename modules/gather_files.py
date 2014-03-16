@@ -2,7 +2,7 @@ import os
 import re
 
 
-def gather_files_python(config, *args):
+def gather_files(config, *args):
     def prepare_regexes():
         sufix_re = u"|".join(config["file_sufixes"])
         return {

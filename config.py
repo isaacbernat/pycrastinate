@@ -4,7 +4,7 @@ import enclose
 enclose = enclose.print_log
 
 pipeline = {
-    100: gather_git_blames_python,
+    100: gather_git_blames,
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
@@ -14,7 +14,7 @@ pipeline = {
 }
 
 data = {
-    "gather_git_blames_python": {
+    "gather_git_blames": {
         "init_path": "./",
         "tokens": {
             "todo": 0,
