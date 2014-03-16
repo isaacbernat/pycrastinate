@@ -41,5 +41,8 @@ data = {
         "indent": "  ",
         "column_separator": "  ",
         "max_width": 80,
+    },
+    "process_results": {
+        "drop": True,
     }
 }
