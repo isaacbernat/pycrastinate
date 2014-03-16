@@ -1,6 +1,6 @@
 from .gather_files import gather_files
+from .git_blames_from_files import git_blames_from_files
 from .gather_git_blames_shell import gather_git_blames_shell
-from .gather_git_blames import gather_git_blames
 from .filter_by_age import filter_by_age
 from .raise_if_present import raise_if_present
 from .aggregate_by import aggregate_by

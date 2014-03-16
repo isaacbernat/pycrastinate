@@ -4,7 +4,7 @@ from modules.gather_files import gather_files
 module = gather_files.__name__
 
 
-class TestGatherFilesPython(object):
+class TestGatherFiles(object):
     def setup(self):
         self.config = {module: {
             "root_paths": ["./tests/aux_files"],

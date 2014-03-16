@@ -1,7 +1,6 @@
 import nose.tools as nt
 from pycrastinate import run
 from modules.gather_git_blames_shell import gather_git_blames_shell
-from modules.gather_git_blames import gather_git_blames
 
 
 class TestGatherGitBlames(object):
@@ -73,24 +72,6 @@ class TestGatherGitBlamesShell(TestGatherGitBlames):
     def test_gathered_fields(self):
         fields = ["commit_hash", "code", "date", "email", "file_path",
                   "line_count", "token", "summary", "author", "author-tz"]
-        self.gathered_fields(fields)
-
-    def test_filtered_sufixes(self):
-        self.filtered_sufixes()
-
-    def test_filtered_tokens(self):
-        self.filtered_tokens()
-
-    def test_case_sensitivity(self):
-        self.case_sensitivity()
-
-
-class TestGatherGitBlames(TestGatherGitBlames):
-    pipeline = {100: gather_git_blames}
-    module = gather_git_blames.__name__
-
-    def test_gathered_fields(self):
-        fields = ["code", "date", "email", "file_path", "line_count", "token"]
         self.gathered_fields(fields)
 
     def test_filtered_sufixes(self):

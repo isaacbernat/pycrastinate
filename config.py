@@ -4,7 +4,8 @@ import enclose
 enclose = enclose.print_log
 
 pipeline = {
-    100: gather_git_blames,
+    100: gather_files,
+    200: git_blames_from_files,
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
@@ -14,16 +15,13 @@ pipeline = {
 }
 
 data = {
-    "gather_git_blames": {
-        "init_path": "./",
-        "tokens": {
-            "todo": 0,
-            "fixme": 1,
-        },
-        "case-sensitive": False,
+    "gather_files": {
+        "root_paths": ["./"],
         "file_sufixes": [".py", ".rb"],
-        "default_email": "default@email.com",
-        "include_committer": False,
+    },
+    "git_blames_from_files": {
+        "tokens": ["todo", "fixme"],
+        "case-sensitive": False,
     },
     "filter_by_age": {
         "oldest": 180,
