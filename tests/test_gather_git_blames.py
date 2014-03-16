@@ -7,12 +7,8 @@ class TestGatherGitBlames(object):
     def setup(self):
         self.config = {self.module: {
             "init_path": "./tests/aux_files",
-            "tokens": {
-                "TODO": 0,
-                "FIXME": 1,
-            },
+            "tokens": ["TODO", "FIXME"],
             "file_sufixes": [".py", ".rb"],
-            "default_email": "tech@wrapp.com",
             }
         }
 

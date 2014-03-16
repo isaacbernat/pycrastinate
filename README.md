@@ -68,18 +68,19 @@ We set our pipeline strategy. Note: some modules may perform multiple steps
 9.- process results (generators)  -> return input as list
 """
 
-pipeline = {
 """
-We want to use `gather_git_blames_shell` instead of the other python modules.
-It is much faster but has additional requisites to run.
-Namely `git` (at least 1.8.5), `grep`, `cut`, `awk`, `sed`, `xargs` and `cat`.
+We want to use `gather_git_blames_shell` instead of `gather_files`and
+`git_blames_from_files` modules.
+It is >4x faster (with both 2.7 and 3.3) but has additional requisites.
+Namely `git` (v. 1.8.5+), `grep`, `cut`, `awk`, `sed`, `xargs` and `cat`.
 It also performs both gather and inspect steps at once.
 """
+pipeline = {
     100: gather_git_blames_shell,
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
-    700: print_summary,
+    700: text_summary,
     800: print_summary,
     900: process_results,
 }
@@ -92,13 +93,9 @@ The dictionary keys are the module names.
 data = {
     "gather_git_blames_shell": {
         "init_path": "./",
-        "tokens": {
-            "todo": 0,
-            "fixme": 1,
-        },
+        "tokens": ["todo", "fixme"],
         "case-sensitive": False,
         "file_sufixes": [".py", ".rb"],
-        "default_email": "default@email.com",
         "include_committer": False,
     },
     "filter_by_age": {
@@ -117,7 +114,7 @@ data = {
         "indent": "  ",
         "column_separator": "  ",
         "max_width": 80,
-    }
+    },
     "process_results": {
         "drop": True,
     }

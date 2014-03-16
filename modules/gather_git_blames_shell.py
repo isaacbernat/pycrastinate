@@ -11,7 +11,7 @@ def gather_git_blames_shell(config, *args):
                 if not re.match(regex["previous_or_boundary_re"], line))
 
     def prepare_regexes():
-        raw_tokens_re = u"|".join(config["tokens"].keys())
+        raw_tokens_re = u"|".join(config["tokens"])
         tokens_compiled = re.compile(u"({})".format(
             raw_tokens_re), re.IGNORECASE)
         line_count_re = re.compile("[0-9a-f]{40} \d+ (\d+)")
