@@ -1,23 +1,24 @@
 from itertools import chain, repeat
 
 
-def nested_report(d, config, depth=0):
+def nested_report(data, config, depth=0):
     """Assumes that all levels are nested dicts until a list of dicts"""
     ind = depth*config["indent"]
-    if isinstance(d, list):
+    if isinstance(data, list):
         max_width = config["max_width"]
         col_separator = config["column_separator"]
-        for l in d:
-            str_attrs = [str(a) for a in [l["token"], l["date"], l["email"],
-                         l["line_count"], l["file_path"], l["code"]]]
+        for line in data:
+            str_attrs = [str(el) for el in [line["token"], line["date"],
+                         line["email"], line["line_count"],
+                         line["file_path"], line["code"]]]
             yield (ind + col_separator.join(str_attrs))[:max_width]
     else:
-        for k, v in d.items():
+        for key, val in data.items():
             yield chain(
-                ["{}{}".format(ind, k)],
+                ["{}{}".format(ind, key)],
                 chain.from_iterable(
-                    repeat(l, 1) if isinstance(l, str)
-                    else l for l in nested_report(v, config, depth+1)))
+                    repeat(el, 1) if isinstance(el, str)
+                    else el for el in nested_report(val, config, depth+1)))
 
 
 def text_summary(config, data):
