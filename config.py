@@ -8,7 +8,8 @@ pipeline = {
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
-    700: print_summary,
+    700: text_summary,
+    800: print_summary,
     900: process_results,
 }
 
@@ -36,7 +37,7 @@ data = {
         "keys": ["token", "file_path"],
         "case-sensitive": False,
     },
-    "print_summary": {
+    "text_summary": {
         "indent": "  ",
         "column_separator": "  ",
         "max_width": 80,
