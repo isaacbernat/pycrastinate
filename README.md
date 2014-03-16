@@ -82,6 +82,7 @@ pipeline = {
     600: aggregate_by,
     700: text_summary,
     800: print_summary,
+    850: send_email,
     900: process_results,
 }
 
@@ -114,6 +115,17 @@ data = {
         "indent": "  ",
         "column_separator": "  ",
         "max_width": 80,
+    },
+    "send_email": {
+        "to": ["another_example@gmail.com"],
+        "cc": [],
+        "bcc": [],
+        "from": "example@gmail.com",
+        "username": "example@gmail.com",
+        "password": "example_password",
+        "smtp_name": "smtp.gmail.com",
+        "smtp_port": 587,
+        "subject": "Pycrastinate example report",
     },
     "process_results": {
         "drop": True,
