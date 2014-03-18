@@ -3,7 +3,7 @@ from itertools import chain, repeat
 
 def nested_report(data, config, depth=0):
     """Assumes that all levels are nested dicts until a list of dicts"""
-    ind = depth*config["indent"]
+    ind = depth*config.get("indent", "  ")
     if isinstance(data, list):
         max_width = config["max_width"]
         col_separator = config["column_separator"]
