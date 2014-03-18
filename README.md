@@ -80,9 +80,8 @@ pipeline = {
     400: filter_by_age,
     500: raise_if_present,
     600: aggregate_by,
-    700: text_summary,
-    800: print_summary,
-    850: send_email,
+    700: html_summary,
+    800: send_email,
     900: process_results,
 }
 
@@ -111,10 +110,9 @@ data = {
         "keys": ["token", "file_path"],
         "case-sensitive": False,
     },
-    "text_summary": {
-        "indent": "  ",
-        "column_separator": "  ",
-        "max_width": 80,
+    "html_summary": {
+        "title": "Pycrastinate HTML report",
+        "css": ["td{font-family: monospace}"],
     },
     "send_email": {
         "to": ["another_example@gmail.com"],
