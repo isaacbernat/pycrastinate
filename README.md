@@ -113,6 +113,7 @@ data = {
     "html_summary": {
         "title": "Pycrastinate HTML report",
         "css": ["td{font-family: monospace}"],
+        "timestamp": True,
     },
     "send_email": {
         "to": ["another_example@gmail.com"],

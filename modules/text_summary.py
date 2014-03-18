@@ -1,4 +1,5 @@
 from itertools import chain, repeat
+from datetime import datetime
 
 
 def nested_report(data, config, depth=0):
@@ -28,6 +29,8 @@ def text_summary(config, data):
     config["max_width"] = config.get("max_width", 80)
     hr = "="*config["max_width"]
     column_order = "token > date > author > line > source"
+    if config.get("timestamp", True):
+        column_order += "\nGenerated at: {}".format(datetime.now())
     column_names = "\n".join([hr, column_order, hr])
     yield column_names
     for iter_lines in nested_report(data, config):

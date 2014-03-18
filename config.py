@@ -39,6 +39,7 @@ data = {
         "indent": "  ",
         "column_separator": "  ",
         "max_width": 80,
+        "timestamp": True,
     },
     "process_results": {
         "drop": True,

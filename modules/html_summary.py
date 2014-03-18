@@ -1,4 +1,5 @@
 from itertools import chain, repeat
+from datetime import datetime
 
 
 def nested_report(data, table_bp, depth=2):
@@ -28,6 +29,8 @@ def html_summary(config, data):
                           ["td{font-family: monospace; border=1}"]))
     css = '<style type="text/css">{}</style>'.format(css_rules)
     yield "<html><head>{}</head><body><h1>{}</h1>".format(css, title)
+    if config.get("timestamp", True):
+        yield "<p>Generated at: {}</p>".format(datetime.now())
     table_bp = "<table><thead><tr>{}</tr></thead><tbody>".format("".join(
         ("<th>{}</th>".format(col)
             for col in [
