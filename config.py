@@ -7,6 +7,7 @@ pipeline = {
     100: gather_files,
     200: git_blames_from_files,
     400: filter_by_age,
+    410: exclude,
     500: raise_if_present,
     600: aggregate_by,
     700: text_summary,
@@ -26,6 +27,12 @@ data = {
     "filter_by_age": {
         "oldest": 180,
         "earliest": -1,
+    },
+    "exclude": {
+        "file_path": {
+            "values": ["config.py"],
+            "function": lambda data, value: data == value,
+        }
     },
     "raise_if_present": {
         "case-sensitive": True,
