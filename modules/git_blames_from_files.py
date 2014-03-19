@@ -12,7 +12,7 @@ def git_blames_from_files(config, data):
         return {
             "blame": re.compile(u".*({})".format(tokens_re), flags),
             "date": re.compile(u"(\d{4})-(\d{2})-(\d{2})"),
-            "email": re.compile(u"<(.*@.*)>"),
+            "email": re.compile(u"<([^ ]+@[^ ]+)>"),
             "token": re.compile(u"({})".format(tokens_re), flags),
         }
 
