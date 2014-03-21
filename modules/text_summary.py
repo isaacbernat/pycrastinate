@@ -2,7 +2,7 @@ from itertools import chain, repeat
 from datetime import datetime
 
 
-def nested_report(data, config, depth=0):
+def nested_report(config, data, depth=0):
     """Assumes that all levels are nested dicts until a list of dicts"""
     ind = depth*config.get("indent", "  ")
     if isinstance(data, list):
@@ -19,7 +19,7 @@ def nested_report(data, config, depth=0):
                 ["{}{}".format(ind, key)],
                 chain.from_iterable(
                     repeat(el, 1) if isinstance(el, str)
-                    else el for el in nested_report(val, config, depth+1)))
+                    else el for el in nested_report(config, val, depth+1)))
 
 
 def text_summary(config, data):
@@ -33,6 +33,6 @@ def text_summary(config, data):
         column_order += "\nGenerated at: {}".format(datetime.now())
     column_names = "\n".join([hr, column_order, hr])
     yield column_names
-    for iter_lines in nested_report(data, config):
+    for iter_lines in nested_report(config, data):
         for line in iter_lines:
             yield line
