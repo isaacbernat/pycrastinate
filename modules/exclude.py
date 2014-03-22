@@ -1,5 +1,9 @@
+import utils.memoization
+
+
 def exclude(config, data):
-    def filter_line(line, config):
+    @utils.memoization.memoize_last_result_with_params
+    def filter_line(line):
         for key, test_list in config.items():
             for t in test_list:
                 for val in t["values"]:
@@ -9,4 +13,4 @@ def exclude(config, data):
         return line
 
     config = config.get(__name__.split(".")[-1], {})
-    return (filter_line(d, config) for d in data if filter_line(d, config))
+    return (filter_line(d) for d in data if filter_line(d))
