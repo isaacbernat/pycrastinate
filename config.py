@@ -29,10 +29,10 @@ data = {
         "earliest": -1,
     },
     "exclude": {
-        "file_path": {
+        "file_path": [{
             "values": ["config.py"],
-            "function": lambda data, value: data == value,
-        }
+            "functions": [lambda data, value: data == value]
+        }],
     },
     "raise_if_present": {
         "case-sensitive": True,
