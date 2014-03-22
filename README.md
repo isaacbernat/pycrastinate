@@ -17,7 +17,7 @@ Usage
 Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory.
 
 ### Tune it
-Edit `config.py` to your liking. Change the `init_path` for whichever path holds the files you want to analyse, the `file_sufixes` to include only those that you want, the (case-insensitive) `tokens` that should be considered, etc.
+Edit `config.py` to your liking. Change the `root_paths` for whichever paths holds the files you want to analyse, the `file_sufixes` to include only those that you want, the `tokens` that should be considered, their case-sensitivity, etc.
 
 ### Master it
 It is highly encouraged to read at least this succint documentation section if you plan to really use pycrastinate.
