@@ -12,6 +12,7 @@ pipeline = {
     600: aggregate_by,
     700: text_summary,
     800: print_summary,
+    810: save_to_file,
     900: process_results,
 }
 
@@ -48,7 +49,12 @@ data = {
         "max_width": 80,
         "timestamp": True,
     },
+    "save_to_file": {
+        "path": "./",
+        "filename": "report.txt",
+        "overwrite": False,
+    },
     "process_results": {
         "drop": True,
-    }
+    },
 }
