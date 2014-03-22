@@ -15,7 +15,5 @@ def gather_files(config, *args):
 
     config = config[__name__.split(".")[-1]]
     regex = prepare_regexes()
-    file_list_generators = []
-    for path in config["root_paths"]:
-        file_list_generators.append(list_files(path))
+    file_list_generators = (list_files(path) for path in config["root_paths"])
     return (f for gen in file_list_generators for f in gen)
