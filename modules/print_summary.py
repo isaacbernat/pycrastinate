@@ -1,4 +1,4 @@
 def print_summary(config, data):
-    for line in data:
-        yield(line)
-        print(line)
+    report = "\n".join(data)
+    yield report
+    print(report)

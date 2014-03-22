@@ -28,14 +28,14 @@ def html_summary(config, data):
     css_rules = "\n".join(config.get("css",
                           ["td{font-family: monospace; border=1}"]))
     css = '<style type="text/css">{}</style>'.format(css_rules)
-    yield "<html><head>{}</head><body><h1>{}</h1>".format(css, title)
+    html_start = ["<html><head>{}</head><body><h1>{}</h1>".format(css, title)]
+    html_end = ["</body></html>"]
     if config.get("timestamp", True):
-        yield "<p>Generated at: {}</p>".format(datetime.now())
+        html_start.append("<p>Generated at: {}</p>".format(datetime.now()))
     table_bp = "<table><thead><tr>{}</tr></thead><tbody>".format("".join(
         ("<th>{}</th>".format(col)
             for col in [
                 "token", "date", "author", "line", "source", "comment"])))
-    for iter_lines in nested_report(data, table_bp):
-        for line in iter_lines:
-            yield line
-    yield "</body></html>"
+    report = chain([html_start], nested_report(data, table_bp), [html_end])
+    return chain.from_iterable(repeat(el, 1) if isinstance(el, str)
+                               else el for el in report)

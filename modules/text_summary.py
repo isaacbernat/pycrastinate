@@ -31,8 +31,7 @@ def text_summary(config, data):
     column_order = "token > date > author > line > source"
     if config.get("timestamp", True):
         column_order += "\nGenerated at: {}".format(datetime.now())
-    column_names = "\n".join([hr, column_order, hr])
-    yield column_names
-    for iter_lines in nested_report(config, data):
-        for line in iter_lines:
-            yield line
+    column_names = [hr, column_order, hr]
+    report = chain([column_names], nested_report(config, data))
+    return chain.from_iterable(repeat(el, 1) if isinstance(el, str)
+                               else el for el in report)
