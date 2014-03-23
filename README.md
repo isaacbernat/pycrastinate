@@ -1,6 +1,8 @@
 Pycrastinate
 ============
-TODOs are meant to be done... at some point. This is why they were written in first place, right? Pycrastinate is a **language-agnostic** tool which helps you accomplish that goal and keep your codebase under control -- effortlessly!
+Tired of TODOs from people who have not touched that code in years? What about FIXMEs?
+
+Pycrastinate is a **language-agnostic** tool that helps you keep your codebase (whether it is legacy or new) under control without any extra effort on your part.
 
 Requirements
 ------------
@@ -14,10 +16,10 @@ Clone this git repository
 Usage
 -----
 ### Try it out
-Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory.
+Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory and experience the magic.
 
 ### Tune it
-Edit `config.py` to your liking. Change the `root_paths` for whichever paths holds the files you want to analyse, the `file_sufixes` to include only those that you want, the `tokens` that should be considered, their case-sensitivity, etc.
+Edit `config.py` to your liking. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. TODOs), their case-sensitivity, etc.
 
 ### Master it
 It is highly encouraged to read at least this succint documentation section if you plan to really use pycrastinate.
@@ -30,16 +32,17 @@ Each module has its own documentation and set of tests you can refer to. Here th
 * `config.py`: this is the file where you **configure** (set which, their order, their parameters, etc.) pipelines you want to execute.
 * `pycrastinate.py`: this is the file you run to **execute** the pipelines.
 * `modules`: steps that can be run in the pipeline process.
-* `enclose`: closures that can be applied for each module execution (e.g. logging)
-* `tests`: unit tests for other files lie here. Simply type `nosetests`.
+* `enclose`: closures that can be applied for each module execution (e.g. logging).
+* `tests`: unit tests for the other files. Simply type `nosetests`.
+* `utils`: semi-generic utilities that may be used across different modules (e.g. memoisation decorator).
 
 ### config.py
 The config file is itself split into 4 sections:
 
 * `imports`: to access `modules` and `enclose` contents
-* `enclose`: here you can set which closure you want to apply for each module being executed.
-* `pipeline`: this is a `key: value` dictionary where the key is the priority (i.e. order) in which the processor will be executed and the value is the module of name to be executed. Lower number will run first.
-* `data`: this is a `key: value` dictionary where the configuration parameters for each module you run are set. To avoid name clashes the key is always the name of the module. Usually the value is a dictionary when more than one parameter is required for the module to be configured.
+* `enclose`: set which closure to apply for each module being executed.
+* `pipeline`: this is a `key: value` dictionary where the key is the priority (i.e. order) in which the processor will be executed and the value is the module of name to be executed. Lower numbers will run first. Ties are indeterministic.
+* `data`: this is a `key: value` dictionary where the configuration parameters for each module to run are set. To avoid name clashes the key is always the name of the module. Values are dictionaries (usually modules can accept more than one parameter and having key names instead of other data structures (e.g. lists) is more readable).
 
 #### Example
 ```python
@@ -50,7 +53,7 @@ import enclose
 #----- enclose section -----
 """
 We want to log on the screen every time a module starts and ends.
-Thus, we add the corresponding module
+Thus, we add the corresponding closure
 """
 enclose = enclose.print_log
 
@@ -65,15 +68,14 @@ We set our pipeline strategy. Note: some modules may perform multiple steps
 6.- aggregate results             -> return line_metadata (aggregated)
 7.- generate report/render        -> return report
 8.- deliver/notify/act on report  -> return report (unaltered)
-9.- process results (generators)  -> return input as list
+9.- process results (generators)  -> return input as list, drop it, etc.
 """
 
 """
-We want to use `gather_git_blames_shell` instead of `gather_files`and
-`git_blames_from_files` modules.
-It is >4x faster (with both 2.7 and 3.3) but has additional requisites.
+We want to use `gather_git_blames_shell` instead of `gather_files` together with `git_blames_from_files` modules.
+It is >4x faster (tested on python 2.7 and 3.3+) but has additional requisites.
 Namely `git` (v. 1.8.5+), `grep`, `cut`, `awk`, `sed`, `xargs` and `cat`.
-It also performs both gather and inspect steps at once.
+It performs both gather and inspect steps at once.
 """
 pipeline = {
     100: gather_git_blames_shell,
@@ -140,18 +142,18 @@ Contributing
 Pycrastinate is still pretty much under continuous improvement. This means that there might be bugs, additional desired functionalities or unclear examples within the documentation. Feel free to open issues for any of them and/or reach me.
 
 ### New features
-Pull requests are most welcome. Do not be intimidated but keep in mind a few considerations before considering a PR:
+Pull requests are most welcome. Do not be intimidated but keep in mind a few considerations before creating a PR:
 
 * Check other branches, so that the feature you want to implement is not already being worked on at the moment.
 
-* Write enough tests to cover at least the most common use case scenarios of the feature. Also, do not break existing tests (run `nosetests`)
+* Write enough tests to cover at least the most common use case scenarios of the feature. Also, do not break existing tests (run `nosetests`). Documentation is a big plus.
 
 * Try to keep high standards of code quality. After all this code is going to be public and can potentially be contributed by many others after you.
 
-* Be consistent with the current style. Code conventions can change and adapt, but they need to be coherent project-wide.
+* Be consistent with the current style (e.g. PEP8). Code conventions can change and adapt, but they need to be coherent project-wide.
 
 ### Contributors
-Pycrastinate started as a hack-day project at [Wrapp](https://www.wrapp.com) by [Isaac Bernat](https://github.com/isaacbernat), who is the current maintainer. He has not done this alone and wants to thank everyone else involved in the project. He is reachable via e-mail at <isaac.bernat@gmail.com>
+Pycrastinate started as a hack-day project at [Wrapp](https://www.wrapp.com) by [Isaac Bernat](https://github.com/isaacbernat), who is the current maintainer. He is not doing this alone and wants to thank everyone else involved in the project. He is reachable via e-mail at <isaac.bernat@gmail.com>
 
 Licence
 -------
