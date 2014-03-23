@@ -2,6 +2,18 @@ import smtplib
 from email.mime.text import MIMEText
 
 
+def prepare_smtp(config):
+    smtp_name = config.get("smtp_name", "localhost")
+    smtp_port = config.get("smtp_port", 587)
+    server = smtplib.SMTP(smtp_name, smtp_port)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    if config.get("username") and config.get("password"):
+        server.login(config["username"], config["password"])
+    return server
+
+
 def send_email(config, data):
     config = config.get(__name__.split(".")[-1], {})
     sender = config["from"]
@@ -18,20 +30,10 @@ def send_email(config, data):
         msg["Cc"] = ",".join(cc)
         return msg
 
-    def prepare_smtp():
-        smtp_name = config.get("smtp_name", "localhost")
-        smtp_port = config.get("smtp_port", 587)
-        server = smtplib.SMTP(smtp_name, smtp_port)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        if config.get("username") and config.get("password"):
-            server.login(config["username"], config["password"])
-        return server
-
-    server = prepare_smtp()
+    server = config.get("smtp", prepare_smtp(config))
     data = list(data)
-    yield data
+    for d in data:
+        yield d
     msg = prepare_msg("\n".join(data))
     server.sendmail(sender, to + cc + bcc, msg.as_string())
     server.quit()
