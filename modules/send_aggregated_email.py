@@ -1,5 +1,6 @@
 import re
 from modules.send_email import *
+from modules.process_results import process_results
 
 
 def nested_report(config, data, depth=0):
@@ -13,7 +14,7 @@ def nested_report(config, data, depth=0):
             if re.match(config["email_re"], key):
                 body = config["render_function"](config, val)
                 config["to"] = config.get("to", []) + [key.lower()]
-                send_email({"send_email": config}, body)
+                process_results({}, send_email({"send_email": config}, body))
             else:
                 nested_report(config, val, depth+1)
 
