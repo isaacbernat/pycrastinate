@@ -32,12 +32,11 @@ def send_email(config, data):
 
     server = config.get("smtp", prepare_smtp(config))
     data = list(data)
-    for d in data:
-        yield d
     msg = prepare_msg("\n".join(data))
     server.sendmail(sender, to + cc + bcc, msg.as_string())
     if not config.get("smtp", False):
         quit_smtp(server)
+    return (d for d in data)
 
 
 def quit_smtp(server):
