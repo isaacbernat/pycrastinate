@@ -39,8 +39,7 @@ Each module has its own documentation and set of tests you can refer to. Here th
 ### config.py
 The config file is itself split into 4 sections:
 
-* `imports`: to access `modules` and `enclose` contents
-* `enclose`: set which closure to apply for each module being executed.
+* `imports`: to access `modules` set `enclose`, a closure to apply for each module being executed.
 * `pipeline`: this is a `key: value` dictionary where the key is the priority (i.e. order) in which the processor will be executed and the value is the module of name to be executed. Lower numbers will run first. Ties are indeterministic.
 * `data`: this is a `key: value` dictionary where the configuration parameters for each module to run are set. To avoid name clashes the key is always the name of the module. Values are dictionaries (usually modules can accept more than one parameter and having key names instead of other data structures (e.g. lists) is more readable).
 
@@ -48,14 +47,7 @@ The config file is itself split into 4 sections:
 ```python
 #----- imports section -----
 from modules import *
-import enclose
-
-#----- enclose section -----
-"""
-We want to log on the screen every time a module starts and ends.
-Thus, we add the corresponding closure
-"""
-enclose = enclose.print_log
+from enclose import print_log as enclose
 
 #----- pipeline section -----
 """

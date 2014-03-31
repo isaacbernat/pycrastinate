@@ -1,7 +1,5 @@
 from modules import *
-import enclose
-
-enclose = enclose.print_log
+from enclose import print_log as enclose
 
 pipeline = {
     100: gather_files,
