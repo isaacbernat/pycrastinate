@@ -1,6 +1,6 @@
 Pycrastinate
 ============
-Tired of `TODO`s from people who have not touched that code in years? What about `FIXME`s?
+Tired of `TODO` from people who have not touched that code in years? What about `FIXME`?
 
 Pycrastinate is a **language-agnostic** tool that helps you keep your codebase (whether it is legacy or new) under control, without any extra effort on your part.
 
@@ -19,16 +19,14 @@ Usage
 Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory and experience the magic.
 
 ### Tune it
-Edit `config.py` to your liking. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`s), their case-sensitivity, etc.
+Edit `config.py` to your liking. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`), their case-sensitivity, etc.
 
 ### Master it
 It is highly encouraged to read at least this succint documentation section if you plan to really use pycrastinate.
 
 Documentation
 -------------
-Each* module has its own documentation and set of tests you can refer to. Here there is a general overview of how the project is structured. The basic config file for the default settings is also covered.
-
-*If you find some module with incomplete documentation/tests you may want to report it (and be patient) or consider contributing a fix.
+Each* module has its own documentation and set of tests you can refer to. Here is a general overview of how the project is structured. The basic config file for the default settings is also covered.
 
 ### Structure
 * `config.py`: this is the file where you **configure** (set which, their order, their parameters, etc.) pipelines you want to execute.
@@ -130,6 +128,8 @@ data = {
 
 ### Further information
 TODO (check each specific file)
+
+*If you find some module with incomplete documentation/tests you may want to report it (and be patient), but you can also consider contributing a fix.
 
 Contributing
 ------------
