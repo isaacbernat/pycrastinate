@@ -108,6 +108,8 @@ data = {
         "title": "Pycrastinate HTML report",
         "css": ["td{font-family: monospace}"],
         "timestamp": True,
+        "columns": ["token", "date", "email", "line_count", "file_path",
+                    "code"],
     },
     "send_email": {
         "to": ["another_example@gmail.com"],
