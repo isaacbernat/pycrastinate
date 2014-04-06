@@ -31,8 +31,7 @@ def git_blames_from_files(config, data):
         date = datetime.date(int(date[0]), int(date[1]), int(date[2]))
         code = u"".join(blame.split(")")[1:]).strip()
         return {
-            #[2:] because we skip the initial characters "./"
-            "file_path": code_file[2:],
+            "file_path": code_file,
             "code": code,
             "date": date,
             "email": email,
