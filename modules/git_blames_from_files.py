@@ -18,8 +18,8 @@ def git_blames_from_files(config, data):
         }
 
     def process_blame_line():
-        split_code = code_file.split("/")
-        pathname, filename = "/".join(split_code[:-1]), split_code[-1]
+        filename = code_file.split("/")[-1]
+        pathname = code_file.split(filename)[0]
         os.chdir(pathname)
         blame = subprocess.Popen("git blame -e {} -L {},{}".format(
             filename, count, count), stdout=subprocess.PIPE,
