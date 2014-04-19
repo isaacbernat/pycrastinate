@@ -26,13 +26,11 @@ class TestExclude(object):
         from datetime import date
         self.cfg = {module: {
             "date": [{
-                "values": [180],
-                "functions": [lambda data, value:
-                              (data + timedelta(value)) < date.today()],
+                "values": [timedelta(180)],
+                "functions": [lambda data, value: data + value < date.today()],
                 }, {
-                "values": [15],
-                "functions": [lambda data, value:
-                              (data + timedelta(value)) >= date.today()],
+                "values": [timedelta(15)],
+                "functions": [lambda data, value: data + value > date.today()],
                 }],
             }
         }
@@ -44,7 +42,7 @@ class TestExclude(object):
         nt.assert_true(len(res) > 0)
         for r in res:
             nt.assert_true(date.today() - r["date"] <
-                           timedelta(self.cfg[module]["date"][0]["values"][0]))
+                           self.cfg[module]["date"][0]["values"][0])
 
     @patch('datetime.date', MutableDate)
     def test_exclude_early_dates(self):
@@ -53,7 +51,7 @@ class TestExclude(object):
         nt.assert_true(len(res) > 0)
         for r in res:
             nt.assert_true(date.today() - r["date"] >
-                           timedelta(self.cfg[module]["date"][1]["values"][0]))
+                           self.cfg[module]["date"][1]["values"][0])
 
     @patch('datetime.date', MutableDate)
     def test_exclude_old_and_early_dates(self):
@@ -63,9 +61,9 @@ class TestExclude(object):
         nt.assert_true(len(res) > 0)
         for r in res:
             nt.assert_true(date.today() - r["date"] <
-                           timedelta(self.cfg[module]["date"][0]["values"][0]))
+                           self.cfg[module]["date"][0]["values"][0])
             nt.assert_true(date.today() - r["date"] >
-                           timedelta(self.cfg[module]["date"][1]["values"][0]))
+                           self.cfg[module]["date"][1]["values"][0])
 
     def test_by_default_does_not_exclude(self):
         res = list(exclude({}, data))
@@ -82,5 +80,5 @@ class TestExclude(object):
         nt.assert_true(len(res) > 0)
         for r in res:
             nt.assert_true(date.today() - r["date"] <
-                           timedelta(self.cfg[module]["date"][0]["values"][0]))
+                           self.cfg[module]["date"][0]["values"][0])
             nt.assert_false(r["code"].startswith("#TODO celebrate"))
