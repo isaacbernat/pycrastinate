@@ -22,7 +22,8 @@ def send_email(config, data):
     bcc = config.get("bcc", [])
 
     def prepare_msg(msg):
-        msg = MIMEText(msg)
+        mimetype = "html" if msg.lower().startswith("<html>") else "plain"
+        msg = MIMEText(msg, mimetype)
         msg['Subject'] = config.get("subject",
                                     "Pycrastinate automated mail")
         msg['From'] = sender
