@@ -8,7 +8,7 @@ def aggregate_keys(list_data, keys, config):
     agg = defaultdict(list)
     for d in list_data:
         val = d[keys[0]] if config["case-sensitive"]\
-            else str(d[keys[0]]).upper()
+            else (d[keys[0]]).encode('utf-8').upper()
         agg[val].append(d)
     return {k: aggregate_keys(v, keys[1:], config) for k, v in agg.items()}
 
