@@ -1,7 +1,7 @@
 import nose.tools as nt
 from modules.git_blames_from_files import git_blames_from_files
 
-module = git_blames_from_files.__name__
+module = "git_blames_from_files"
 data = ['./tests/aux_files/test_python.py',
         './tests/aux_files/test_ruby.rb']
 
