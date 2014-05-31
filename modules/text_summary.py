@@ -27,8 +27,8 @@ def text_summary(config, data):
     config["column_separator"] = config.get("column_separator", "  ")
     config["max_width"] = config.get("max_width", 80)
     hr = "="*config["max_width"]
-    config["column_order"] = config.get("column_order",
-                                        ["token", "line_count", "file_path"])
+    config["column_order"] = config.get(
+        "column_order", ["token", "line_count", "file_path", "code"])
     column_order = " > ".join(config["column_order"])
     if config.get("timestamp", True):
         column_order += "\nGenerated at: {}".format(datetime.now())
