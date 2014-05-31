@@ -1,4 +1,14 @@
-from modules import *
+from modules.gather_files import gather_files
+from modules.git_blames_from_files import git_blames_from_files
+from modules.filter_by_age import filter_by_age
+from modules.exclude import exclude
+from modules.raise_if_present import raise_if_present
+from modules.aggregate_by import aggregate_by
+from modules.text_summary import text_summary
+from modules.print_summary import print_summary
+from modules.save_to_file import save_to_file
+from modules.process_results import process_results
+
 from enclose import print_log as enclose
 
 pipeline = {
