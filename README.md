@@ -37,7 +37,7 @@ Each module has its own documentation and set of tests you can refer to. Here is
 * `pycrastinate.py`: this is the file you run to **execute** the pipelines.
 * `modules`: steps that can be run in the pipeline process.
 * `enclose`: closures that can be applied for each module execution (e.g. logging, sending realtime metrics to dashboards, etc.).
-* `tests`: unit tests for the other files. Simply type `nosetests`.
+* `tests`: unit tests for the other files. Simply type `nosetests --with-isolation`.
 * `utils`: semi-generic utilities that may be used across different modules (e.g. memoisation decorator).
 
 ### config.py
@@ -103,7 +103,7 @@ Pull requests are most welcome. Do not be intimidated but keep in mind a few con
 
 * Check other branches, so that the feature you want to implement is not already being worked on at the moment.
 
-* Write enough tests to cover at least the most common use case scenarios of the feature. Also, do not break existing tests (run `nosetests`). Documentation is a big plus.
+* Write enough tests to cover at least the most common use case scenarios of the feature. Also, do not break existing tests (run `nosetests --with-isolation`). Documentation is a big plus.
 
 * Try to keep high standards of code quality. After all this code is going to be public and can potentially be contributed by many others after you.
 
