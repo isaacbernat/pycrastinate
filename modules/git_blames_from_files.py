@@ -19,7 +19,7 @@ def prepare_regexes(config):
 
 def process_blame_lines(pi):
     code_file = pi["code_file"]
-    line_numbers = pi["line_numbers"]
+    line_numbers = pi["line_info"].keys()
     regex = pi["regex"]
     init_dir = pi["init_dir"]
     filename = code_file.split("/")[-1]

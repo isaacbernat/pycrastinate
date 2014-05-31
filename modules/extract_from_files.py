@@ -20,15 +20,15 @@ def extract_from_files(config, data):
     init_dir = os.getcwd()
     for code_file in data:
         with codecs.open(code_file, 'rb', "utf-8") as cf:
-            line_numbers = []
+            line_info = {}
             for count, content in enumerate(cf, start=1):
                 if re.match(regex["hit"], content):
-                    line_numbers.append(count)
-            if line_numbers:
+                    line_info[count] = content.strip()
+            if line_info:
                 process_input = {
                     "init_dir": init_dir,
                     "code_file": code_file,
-                    "line_numbers": line_numbers,
+                    "line_info": line_info,
                     "regex": regex}
                 for line in process_lines(process_input):
                     yield line
