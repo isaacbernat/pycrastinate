@@ -54,7 +54,11 @@ This is the example run on PyCon 2014 Sweden for Django project:
 
 ```python
 #----- imports section -----
-from modules import *
+from modules.gather_git_blames_shell import gather_git_blames_shell
+from modules.aggregate_by import aggregate_by
+from modules.text_summary import text_summary
+from modules.print_summary import print_summary
+from modules.process_results import process_results
 from enclose import print_log as enclose
 
 #----- pipeline section -----
