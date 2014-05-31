@@ -8,10 +8,9 @@ def nested_report(config, data, depth=0):
     if isinstance(data, list):
         max_width = config["max_width"]
         col_separator = config["column_separator"]
+        col_order = config["columns"]
         for line in data:
-            str_attrs = [str(el) for el in [line["token"], line["date"],
-                         line["email"], line["line_count"],
-                         line["file_path"], line["code"]]]
+            str_attrs = [str(el) for el in (line[attr] for attr in col_order)]
             yield (ind + col_separator.join(str_attrs))[:max_width]
     else:
         for key, val in data.items():
@@ -28,7 +27,9 @@ def text_summary(config, data):
     config["column_separator"] = config.get("column_separator", "  ")
     config["max_width"] = config.get("max_width", 80)
     hr = "="*config["max_width"]
-    column_order = "token > date > author > line > source"
+    config["columns"] = config.get(
+        "columns", ["token", "line_count", "file_path", "code"])
+    column_order = " > ".join(config["columns"])
     if config.get("timestamp", True):
         column_order += "\nGenerated at: {}".format(datetime.now())
     column_names = [hr, column_order, hr]

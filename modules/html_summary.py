@@ -46,8 +46,8 @@ def HTMLise_func(config, line, col):
 def html_summary(config, data):
     config = config.get(__name__.split(".")[-1], {})
     title = config.get("title", "Pycrastinate HTML report")
-    columns = config.get("columns", ["token", "date", "email", "line_count",
-                         "file_path", "code"])
+    columns = config.get("columns",
+                         ["token", "line_count", "file_path", "code"])
     css_rules = "\n".join(config.get("css",
                           ["td{font-family: monospace; border=1}"]))
     HTMLise = partial(HTMLise_func, config=config)

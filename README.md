@@ -88,6 +88,10 @@ data = {
     "aggregate_by": {
         "keys": ["token", "author"],
     },
+    "text_summary": {
+        "columns": ["token", "date", "email", "line_count", "file_path",
+                    "code"]
+    },
 }
 ```
 
