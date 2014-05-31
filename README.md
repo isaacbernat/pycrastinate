@@ -89,8 +89,8 @@ data = {
         "keys": ["token", "author"],
     },
     "text_summary": {
-        "column_order":
-        ["token", "date", "email", "line_count", "file_path", "code"]
+        "columns": ["token", "date", "email", "line_count", "file_path",
+                    "code"]
     },
 }
 ```

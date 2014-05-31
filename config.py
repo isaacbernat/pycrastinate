@@ -56,7 +56,7 @@ data = {
         "column_separator": "  ",
         "max_width": 80,
         "timestamp": True,
-        "column_order":
+        "columns":
         ["token", "date", "email", "line_count", "file_path", "code"]
     },
     "save_to_file": {
