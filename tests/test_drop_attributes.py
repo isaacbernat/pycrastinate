@@ -47,3 +47,9 @@ class TestDropAttributes(object):
         self.config[module] = {"attr_list": ["code", "token"]}
         res = list(drop_attributes(self.config, self.data))
         nt.assert_equals(len(res), 1)
+
+    def test_works_when_data_is_a_generator(self):
+        self.config[module] = {"attr_list": ["code", "token"]}
+        gen_data = (d for d in self.data)
+        res = list(drop_attributes(self.config, gen_data))
+        nt.assert_equals(len(res), 1)
