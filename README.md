@@ -163,6 +163,17 @@ This module is needed because many of the modules in pycrastinate are lazily eva
 * `utils`: semi-generic utilities that may be used across different modules (e.g. memoisation decorator).
 * `docs`: auxiliary files (e.g. images) needed for documentation purposes.
 
+### pycrastinate.py
+The *main* function which runs the whole pipeline is just a simple python one-liner.
+```python
+def run(pipeline=config.pipeline, config=config.data, enclose=config.enclose):
+    return reduce(lambda results, func: enclose(func, (config, results)),
+                  OrderedDict(sorted(pipeline.items())).values(), [])
+```
+Here there is an illustrative image on how it works [from the PyCon Sweden 2014 presentation](https://github.com/isaacbernat/pycrastinate#dive-in).
+
+![pycrastinate.py diagram](https://github.com/isaacbernat/pycrastinate/blob/master/docs/pycrastinate_diagram.png?raw=true "Diagram with the ordered module categories in pycrastinate pipelines")
+
 ### Further information
 *TODO* (check each specific file)
 
