@@ -19,36 +19,28 @@ Usage
 Pycrastinate can be used right out of the box! It just needs a recent version of `git` (tested with 1.8.0+). Type `python pycrastinate.py` inside its root directory and experience the magic.
 
 ### Dive in
-Pycrastinate was featured in a 25-minutes talk in PyCon Sweden 2014. You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://www.dropbox.com/s/07fihcso355clw1/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples.
+Pycrastinate was featured in a 25-minute talk in [PyCon Sweden 2014](http://2014.pycon.se/). You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://github.com/isaacbernat/pycrastinate/blob/master/docs/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples.
 
 ### Tune it
 Edit `config.py` to your liking. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`), their case-sensitivity, etc.
 
 ### Master it
-It is highly encouraged to read at least this succint documentation section and the slides from PyCon 2014 if you plan to really use pycrastinate.
+It is highly encouraged to read at least this succint documentation section and the slides from PyCon Sweden 2014 if you plan to really use pycrastinate.
 
 
 Documentation
 -------------
-Each module has its own documentation and set of tests you can refer to. Here is a general overview of how the project is structured. The basic config file for the default settings is also covered.
-
-### Structure
-* `config.py`: this is the file where you **configure** (set which, their order, their parameters, etc.) pipelines you want to execute.
-* `pycrastinate.py`: this is the file you run to **execute** the pipelines.
-* `modules`: steps that can be run in the pipeline process.
-* `enclose`: closures that can be applied for each module execution (e.g. logging, sending realtime metrics to dashboards, etc.).
-* `tests`: unit tests for the other files. Simply type `nosetests --with-isolation`.
-* `utils`: semi-generic utilities that may be used across different modules (e.g. memoisation decorator).
+Here is a general overview of all you need to know to customise your pycrastinate flows.
 
 ### config.py
-The config file is itself split into 3 sections:
+The config file is split into 3 sections:
 
 * `imports`: to access `modules` and set `enclose`.
-* `pipeline`: this is a `key: value` dictionary where the **key** is the *priority* (i.e. order) in which the processor will be executed and the **value** is the *function* (from a `module`) to be executed. Lower numbers will run first. Ties are indeterministic.
+* `pipeline`: this is a `key: value` dictionary where the **key** is the *priority* (i.e. order) in which the processor will be executed and the **value** is the *function* (from a `module`) to be executed. Lower numbers will run first. Ties are indeterministic (so you probably want to avoid them).
 * `data`: this is a `key: value` dictionary where the configuration parameters for each function (from a `module`) are set. To avoid name clashes the **key** is always the *name of the module* (which contains the function). **Values** are *dictionaries* (usually functions can accept more than one parameter. In this case, having *key* names instead of other (simpler) data structures (e.g. lists) makes it more human-readable).
 
 #### Example
-This is the example run on PyCon 2014 Sweden for Django project:
+This is the example run on PyCon Sweden 2014 for Django project:
 
 **>240k lines of code, >1.7k python files, >60 `TODO`+`FIXME`...  in < 3.5 seconds!**
 
@@ -96,6 +88,40 @@ data = {
 ```
 
 This is [a basic console report](http://pastebin.com/BGmUkhxR) like the one generated in that presentation.
+
+### Modules
+Each module has its own [documentation](https://github.com/isaacbernat/pycrastinate/tree/master/modules) and [set of tests](https://github.com/isaacbernat/pycrastinate/tree/master/tests) you can refer to. They are organised into *pipelines* to build up pycrastinate flows.
+
+#### Pipelines
+**Definition**: chain of processing elements, arranged so that the output of each element is the input of the next. - [en.wikipedia.org](http://en.wikipedia.org/wiki/Pipeline_(software))
+
+The many modules available in pycrastinate can be grouped into categories depending on which step of the pipeline they are executed. A module may span more than one (consecutive) category (but that is not the norm) and not all categories must be present to create a flow which solves real-life use-cases. There are some examples [from the PyCon Sweden 2014 presentation](https://github.com/isaacbernat/pycrastinate#dive-in) you can refer to. Here is a diagram that helps understanding those categories.
+
+![pipeline diagram](https://github.com/isaacbernat/pycrastinate/blob/master/docs/pipeline_diagram.png "Diagram with the ordered module categories in pycrastinate pipelines")
+
+##### Find & Extract
+The first steps of the pipeline are those which:
+* Enable us to find the files and lines of code we are interested in
+* Take the metadata we want from them (and only that).
+
+##### Act & Analyse
+With the desired metadata from the previous steps, we can:
+* Act on it
+* Turn it into knowledge and changes.
+
+##### Process results
+**TL;DR** this is a special module you always add in the end.
+
+This module is needed because many of the modules in pycrastinate are lazily evaluated (in order to have lower memory footprints). That means that in the end the results from those modules would never be executed if there was no consumer for them. This lightweight module acts as the necessary consumer for those.
+
+### Project structure
+* `config.py`: this is the file where you **configure** (set which, their order, their parameters, etc.) pipelines you want to execute.
+* `pycrastinate.py`: this is the file you run to **execute** the pipelines.
+* `modules`: steps that can be run in the pipeline process.
+* `enclose`: closures that can be applied for each module execution (e.g. logging, sending realtime metrics to dashboards, etc.).
+* `tests`: unit tests for the other files. Simply type `nosetests --with-isolation`.
+* `utils`: semi-generic utilities that may be used across different modules (e.g. memoisation decorator).
+* `docs`: auxiliary files (e.g. images) needed for documentation purposes.
 
 ### Further information
 *TODO* (check each specific file)
