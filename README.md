@@ -32,8 +32,8 @@ Documentation
 -------------
 Here is a general overview of all you need to know to customise your pycrastinate flows.
 
-### config.py
-The config file is split into 3 sections:
+### Configuration
+Configuration files (e.g. config.py) can be split into 3 sections:
 
 * `imports`: to access `modules` and set `enclose`.
 * `pipeline`: this is a `key: value` dictionary where the **key** is the *priority* (i.e. order) in which the processor will be executed and the **value** is the *function* (from a `module`) to be executed. Lower numbers will run first. Ties are indeterministic (so you probably want to avoid them).
@@ -166,7 +166,7 @@ This module is needed because many of the modules in pycrastinate are lazily eva
 ### pycrastinate.py
 The *main* function which runs the whole pipeline is just a simple python one-liner.
 ```python
-def run(pipeline=config.pipeline, config=config.data, enclose=config.enclose):
+def run(pipeline, config, enclose):
     return reduce(lambda results, func: enclose(func, (config, results)),
                   OrderedDict(sorted(pipeline.items())).values(), [])
 ```

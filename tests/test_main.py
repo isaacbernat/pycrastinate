@@ -1,15 +1,17 @@
 import nose.tools as nt
 from pycrastinate import run
 
+enclose = lambda func, params: func(*params)
+
 
 class TestPipeline(object):
     def test_all_modules_from_pipeline_are_run(self):
-        data = run(self.pipeline, {})
+        data = run(self.pipeline, {}, enclose)
         nt.assert_true(5 in data)
         nt.assert_true(50 in data)
 
     def test_modules_from_pipeline_are_run_in_order(self):
-        data = run(self.pipeline, {})
+        data = run(self.pipeline, {}, enclose)
         nt.assert_equals(data, [5, 50])
 
     def plus_5(config, data):
@@ -31,5 +33,5 @@ class TestData(object):
     pipeline = {100: append_config}
 
     def test_modules_can_use_config_data(self):
-        data = run(self.pipeline, {"append": 5})
+        data = run(self.pipeline, {"append": 5}, enclose)
         nt.assert_true(5 in data)

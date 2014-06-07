@@ -13,14 +13,14 @@ class TestGatherGitBlames(object):
         }
 
     def gathered_fields(self, fields):
-        data = list(run(self.pipeline, self.config))
+        data = list(run(self.pipeline, self.config, self.enclose))
         nt.assert_true(len(data) > 0)
         for d in data:
             nt.assert_equal(sorted(fields), sorted(d.keys()))
 
     def filtered_sufixes(self):
         def filter_sufixes():
-            data = run(self.pipeline, self.config)
+            data = run(self.pipeline, self.config, self.enclose)
             return [d["file_path"] for d in data]
 
         sufixes = filter_sufixes()
@@ -34,7 +34,7 @@ class TestGatherGitBlames(object):
 
     def filtered_tokens(self):
         def filter_tokens():
-            data = run(self.pipeline, self.config)
+            data = run(self.pipeline, self.config, self.enclose)
             return [d["token"].lower() for d in data]
 
         tokens = filter_tokens()
@@ -48,7 +48,7 @@ class TestGatherGitBlames(object):
 
     def case_sensitivity(self):
         def get_tokens():
-            data = run(self.pipeline, self.config)
+            data = run(self.pipeline, self.config, self.enclose)
             return [d["token"] for d in data]
 
         tokens = get_tokens()
@@ -63,6 +63,7 @@ class TestGatherGitBlames(object):
 
 class TestGatherGitBlamesShell(TestGatherGitBlames):
     pipeline = {100: gather_git_blames_shell}
+    enclose = lambda self, func, params: func(*params)
     module = gather_git_blames_shell.__name__
 
     def test_gathered_fields(self):
