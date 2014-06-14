@@ -54,10 +54,6 @@ from modules.process_results import process_results
 from enclose import print_log as enclose
 
 #----- pipeline section -----
-"""
-We want to use `gather_git_blames_shell` instead of `gather_files` together with `git_blames_from_files` modules (which are pure python implementations). It is usually >2x faster (tested on python 2.7 and 3.3+) but has additional requisites (namely `git` (v. 1.8.5+), `grep`, `cut`, `awk`, `sed`, `xargs` and `cat`).
-It performs both gather and inspect steps at once.
-"""
 pipeline = {
     100: gather_git_blames_shell,
     600: aggregate_by,

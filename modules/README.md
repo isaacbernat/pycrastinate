@@ -38,6 +38,7 @@ Get a list of file paths we are interested in getting through the pipeline.
 
 #### gather_files
 ##### Parameters
+They have a slightly different behaviour than the ones from `gather_git_blames_shell`. Read carefully.
 ###### root_paths
 - **type**: list of strings.
 - **description**: They are the initial paths to recursively scan.
@@ -53,6 +54,44 @@ Get a list of file paths we are interested in getting through the pipeline.
 "gather_files": {
     "root_paths": ["./"],
     "file_sufixes": [".py", ".rb"],
+},
+```
+
+#### gather_git_blames_shell
+This module performs multiple steps. Here only the part corresponding to this category is covered.
+- [Gather files](https://github.com/isaacbernat/pycrastinate/tree/master/modules#gather-files)
+- [Inspect files](https://github.com/isaacbernat/pycrastinate/tree/master/modules#inspect-files)
+
+It does so using command line tools instead of being a pure python implementation like `gather_files`. This usually makes it 2-4x times faster than executing `gather_files` + `git_blames_from_files`
+##### Dependencies
+In order to use this module you need these command line tools installed
+- `awk`
+- `cat`
+- `cut`
+- `git` (v. 1.8.5+)
+- `grep`
+- `sed`
+- `xargs`
+
+##### Parameters
+They have a slightly different behaviour than the ones from `gather_files`. Read carefully.
+###### init_path
+- **type**: string.
+- **description**: The initial path to recursively scan.
+- **notes**: It requires an absolute path.
+
+###### file_sufixes
+- **type**: list of strings.
+- **description**: Filepaths found ended with any of these will be returned.
+- **defaults**: No restrictions.
+
+##### Config sample:
+```python
+"gather_git_blames_shell": {
+    "init_path": "/Users/ec/django",
+    "file_sufixes": [".py"],
+    "tokens": ["todo", "fixme"],  #this belongs to "Inspect files" section
+    "include_committer": False,  #this belongs to "Inspect files" section
 },
 ```
 
