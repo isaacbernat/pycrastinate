@@ -104,55 +104,10 @@ The first steps of the pipeline are those which:
 * Enable us to find the files and lines of code we are interested in.
 * Take the metadata we want from them (and only that).
 
-###### Gather files
-Get a list of file paths we are interested in getting through the pipeline.
-
-*Example*: I am only interested in python files (ended in ".py") from a couple of specific directories.
-
-###### Inspect files
-Get metadata from the lines of code you are interested in (located in the file paths collected in the previous step).
-
-*Example*: I want to get metadata from all lines of code with `FIXME` or `TODO` on them. For each of them I also want to get the e-mail address of their authors and the time they were last modified.
-
-###### Extract more metadata
-Generate more metadata from what you already have.
-
-*Example*: Every two Fridays we have a hackday. I want to add that information.
-
-###### Filter
-Remove sets of metadata that match some restriction.
-
-*Example*: I am not interested in code more recent than 2 weeks.
-
 ##### Act & Analyse
 With the desired metadata from the previous steps, we can:
 * Act on it.
 * Turn it into knowledge and changes.
-
-###### Trigger actions
-Act on specific metadata.
-
-*Example*: I want to rise an Exception if there are `FIXME` in the metadata.
-
-###### Aggregate
-Group metadata on specific criteria.
-
-*Example*: I want to aggregate the metadata by (1) type of token (e.g. `FIXME` vs `TODO`) and (2) file path, so the information is more manageable.
-
-###### Create report
-Generate a human-readable report on the aggregated metadata.
-
-*Example*: I want to generate HTMLs with github links to the found codelines so it is convenient for me to access them and analyse the information.
-
-###### Deliver
-Act on results from previous steps.
-
-*Example*: I want to send an e-mail with a report for all the aggregated lines of code to their respective authors and a copy to myself.
-
-##### Process results
-**TL;DR** this is a special module you always add in the end.
-
-This module is needed because many of the modules in pycrastinate are lazily evaluated (in order to have lower memory footprints). That means that in the end the results from those modules would never be executed if there was no consumer for them. This lightweight module acts as the necessary consumer for those.
 
 ### Project structure
 * `config.py` (or custom config): this is the file where you **configure** (set which, their order, their parameters, etc.) the modules that define the pipeline.
