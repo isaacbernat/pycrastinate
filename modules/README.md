@@ -9,7 +9,7 @@ For more information you can refer to their specific code files, [set of tests](
 
 The big picture: A pycrastinate pipeline
 ----------------------------------------
-*This excerpt is taken from the main readme*:
+*This excerpt is taken from the [main readme](https://github.com/isaacbernat/pycrastinate#pycrastinate)*:
 
 **Definition**: chain of processing elements, arranged so that the output of each element is the input of the next. - [en.wikipedia.org](http://en.wikipedia.org/wiki/Pipeline_(software))
 
@@ -36,7 +36,7 @@ Get a list of file paths we are interested in getting through the pipeline.
 
 *Example*: I am only interested in python files (ended in ".py") from a couple of specific directories.
 
-#### gather_files
+#### [gather_files](https://github.com/isaacbernat/pycrastinate/blob/master/modules/gather_files.py)
 ##### Parameters
 They have a slightly different behaviour than the ones from `gather_git_blames_shell`. Read carefully.
 ###### root_paths
@@ -57,7 +57,7 @@ They have a slightly different behaviour than the ones from `gather_git_blames_s
 },
 ```
 
-#### gather_git_blames_shell
+#### [gather_git_blames_shell](https://github.com/isaacbernat/pycrastinate/blob/master/modules/gather_git_blames_shell.py)
 This module performs multiple steps. Here only the part corresponding to this category is covered.
 - [Gather files](https://github.com/isaacbernat/pycrastinate/tree/master/modules#gather-files)
 - [Inspect files](https://github.com/isaacbernat/pycrastinate/tree/master/modules#inspect-files)

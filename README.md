@@ -86,7 +86,7 @@ data = {
 This is [a basic console report](http://pastebin.com/BGmUkhxR) like the one generated in that presentation.
 
 ### Modules
-Each module has its own [documentation](https://github.com/isaacbernat/pycrastinate/tree/master/modules) and [set of tests](https://github.com/isaacbernat/pycrastinate/tree/master/tests) you can refer to. They are organised into *pipelines* to build up pycrastinate flows.
+Each module has its own [documentation](https://github.com/isaacbernat/pycrastinate/tree/master/modules#module-specifics) and [set of tests](https://github.com/isaacbernat/pycrastinate/tree/master/tests) you can refer to. They are organised into *pipelines* to build up pycrastinate flows.
 
 #### Pipelines
 **Definition**: chain of processing elements, arranged so that the output of each element is the input of the next. - [en.wikipedia.org](http://en.wikipedia.org/wiki/Pipeline_(software))
