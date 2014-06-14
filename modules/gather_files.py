@@ -4,7 +4,7 @@ import re
 
 def gather_files(config, *args):
     def prepare_regexes():
-        sufix_re = u"|".join(config["file_sufixes"])
+        sufix_re = u"|".join(config.get("file_sufixes", [".py"]))
         return {
             "sufix": re.compile(u".*({})$".format(sufix_re), re.IGNORECASE),
         }
@@ -15,5 +15,6 @@ def gather_files(config, *args):
 
     config = config[__name__.split(".")[-1]]
     regex = prepare_regexes()
-    file_list_generators = (list_files(path) for path in config["root_paths"])
+    root_paths = config.get("root_paths", ["./"])
+    file_list_generators = (list_files(path) for path in root_paths)
     return (f for gen in file_list_generators for f in gen)

@@ -36,6 +36,26 @@ Get a list of file paths we are interested in getting through the pipeline.
 
 *Example*: I am only interested in python files (ended in ".py") from a couple of specific directories.
 
+#### gather_files
+##### Parameters
+###### root_paths
+- **type**: list of strings.
+- **description**: They are the initial paths to recursively scan.
+- **defaults**: current path (`["./"]`).
+
+###### file_sufixes
+- **type**: list of strings.
+- **description**: Filepaths found ended with any of these will be returned.
+- **defaults**: python files (`[".py"]`).
+
+##### Config sample:
+```python
+"gather_files": {
+    "root_paths": ["./"],
+    "file_sufixes": [".py", ".rb"],
+},
+```
+
 ### Inspect files
 Get metadata from the lines of code you are interested in (located in the file paths collected in the previous step).
 
