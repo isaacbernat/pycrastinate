@@ -16,13 +16,13 @@ Clone this git repository
 Usage
 -----
 ### Try it out
-It simply works out of the box! If you cloned this git repo just run `python pycrastinate.py` inside its root directory and experience the magic (tested under `git` 1.8.0+). Otherwise run `python pycrastinate.py config_not_git`.
+It simply works out of the box! If you cloned this git repo just run `python pycrastinate.py config.py` inside its root directory and experience the magic (tested under `git` 1.8.0+). Otherwise run `python pycrastinate.py config_not_git.py`.
 
 ### Dive in
 Pycrastinate was featured in a 25-minute talk in [PyCon Sweden 2014](http://2014.pycon.se/). You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://github.com/isaacbernat/pycrastinate/blob/master/docs/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples.
 
 ### Tune it
-Create your own config file. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`), their case-sensitivity, etc. and then store it on the root path for pycrastinate. The config name must not have any `.` besides de final `.py` and you can use it by running `python pycrastinate.py your_config_name`
+Create your own config file. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`), their case-sensitivity, etc. and then store it on the root path for pycrastinate. The config name must not have any `.` besides de final `.py` and you can use it by running `python pycrastinate.py path_to_you_config/your_config_name.py`
 
 ### Master it
 It is highly encouraged to read at least this succint documentation section and the [slides](https://github.com/isaacbernat/pycrastinate#dive-in) from PyCon Sweden 2014 if you plan to really use pycrastinate.
