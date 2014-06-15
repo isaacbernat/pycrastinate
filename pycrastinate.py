@@ -9,7 +9,7 @@ def run(pipeline, config, enclose):
     return reduce(lambda results, func: enclose(func, (config, results)),
                   OrderedDict(sorted(pipeline.items())).values(), [])
 
-def load_config(full_path):
+def pycrastinate(full_path):
     sys.path.append(os.path.dirname(os.path.expanduser(full_path)))
     _cfg_name = full_path.split("/")[-1].split(".")[0]
     exec("import {}".format(_cfg_name))
@@ -18,6 +18,6 @@ def load_config(full_path):
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        load_config(sys.argv[1])
+        pycrastinate(sys.argv[1])
     else:
         print("You must run pycrastinate with one config file as an argument")

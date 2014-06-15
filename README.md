@@ -11,12 +11,22 @@ Requirements
 
 Installation
 ------------
-Clone this git repository
+- Clone this git repository `git clone https://github.com/isaacbernat/pycrastinate.git`
+
+or
+
+- Get it from pypi `pip install pycrastinate`
 
 Usage
 -----
 ### Try it out
-It simply works out of the box! If you cloned this git repo just run `python pycrastinate.py config.py` inside its root directory and experience the magic (tested under `git` 1.8.0+). Otherwise run `python pycrastinate.py config_not_git.py`.
+It simply works out of the box! If you cloned this git repo just run `python pycrastinate.py config.py` inside its root directory and experience the magic (tested under `git` 1.8.0+). Otherwise run `python pycrastinate.py config_not_git.py`. If you want to run it within another python script do the following:
+
+```python
+from pycrastinate import pycrastinate
+
+pycrastinate("full_path_to_your_config_file/config_name.py")
+```
 
 ### Dive in
 Pycrastinate was featured in a 25-minute talk in [PyCon Sweden 2014](http://2014.pycon.se/). You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://github.com/isaacbernat/pycrastinate/blob/master/docs/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples.
