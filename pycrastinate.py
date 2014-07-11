@@ -14,7 +14,7 @@ def pycrastinate(full_path):
     _cfg_name = full_path.split("/")[-1].split(".")[0]
     exec("import {}".format(_cfg_name))
     _cfg = eval(_cfg_name)
-    run(_cfg.pipeline, _cfg.data, _cfg.enclose)
+    return run(_cfg.pipeline, _cfg.data, _cfg.enclose)
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
