@@ -26,7 +26,7 @@ def gather_git_blames_shell(config, *args):
 
     def get_blames_lines():
         include_sufixes = u'" --include "*{}"'.format(u'" --include "*'.join(
-            config["file_sufixes"])) if config["file_sufixes"] else '"'
+            config.get("file_sufixes", [])))
 
         case_sensitive = config.get("case-sensitive", False)
         insensitive = "" if case_sensitive else "-i"
