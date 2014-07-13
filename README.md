@@ -52,7 +52,9 @@ Configuration files (e.g. `config.py`, `config_pycon.py`, etc.) can be split int
 #### Example
 This is the example run on PyCon Sweden 2014 for Django project ([config_pycon.py](https://github.com/isaacbernat/pycrastinate/blob/master/config_pycon.py)):
 
-**>240k lines of code, >1.7k python files, >60 `TODO`+`FIXME`...  in < 3.5 seconds!**
+- **250k lines** of python code analysed from 13k files (1.8k python files),
+- **>60 `TODO`+`FIXME` reported** (>20 of these found are 5+ years old)
+- All in less than **3.5 seconds!**
 
 ```python
 #----- imports section -----
@@ -74,7 +76,8 @@ pipeline = {
 
 #----- data section -----
 """
-Here we configure each module (we are using many default values, hence it is not bulky, but has many options). The dictionary keys are the module names.
+Here we configure each module. We use implicit default values to keep it simple.
+The dictionary keys are the module names.
 """
 data = {
     "gather_git_blames_shell": {
