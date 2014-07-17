@@ -15,7 +15,7 @@ Installation
 
 or
 
-- Get it from pypi `pip install pycrastinate`
+- Get it from pypi `pip install pycrastinate` (may not be the latest version)
 
 Usage
 -----
