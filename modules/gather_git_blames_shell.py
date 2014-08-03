@@ -5,8 +5,8 @@ import re
 
 def gather_git_blames_shell(config, *args):
     def normalise(blame_lines):
-        #Sometimes commits have a "previous" line between summary and filename.
-        #Sometimes they have not -- porcelain format seems to be inconsistent.
+        # Sometimes commits have a "previous" line between summary and filename
+        # Sometimes they have not -- porcelain format seems to be inconsistent
         return (line for line in blame_lines
                 if not re.match(regex["previous_or_boundary_re"], line))
 
@@ -51,7 +51,7 @@ def gather_git_blames_shell(config, *args):
         return subprocess.Popen(one_liner, stdout=subprocess.PIPE, shell=True)\
             .stdout.read().decode("utf-8").split("\n")
 
-    def process_blame_output(blames_lines):
+    def process_blame_output():
         def initialise_length_dict(include_committer):
             length = {
                 "auth": len("author "),
@@ -130,4 +130,4 @@ def gather_git_blames_shell(config, *args):
     config = config[__name__.split(".")[-1]]
     regex = prepare_regexes()
     blame_lines = get_blames_lines()
-    return process_blame_output(blame_lines)
+    return process_blame_output()

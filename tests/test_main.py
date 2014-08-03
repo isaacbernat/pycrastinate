@@ -4,6 +4,18 @@ from pycrastinate import run
 enclose = lambda func, params: func(*params)
 
 
+def plus_5(config, data):
+    return data + [5]
+
+
+def plus_50(config, data):
+    return data + [50]
+
+
+def append_config(config, data):
+    return data + [config["append"]]
+
+
 class TestPipeline(object):
     def test_all_modules_from_pipeline_are_run(self):
         data = run(self.pipeline, {}, enclose)
@@ -14,12 +26,6 @@ class TestPipeline(object):
         data = run(self.pipeline, {}, enclose)
         nt.assert_equals(data, [5, 50])
 
-    def plus_5(config, data):
-        return data + [5]
-
-    def plus_50(config, data):
-        return data + [50]
-
     pipeline = {
         100: plus_5,
         200: plus_50,
@@ -27,9 +33,6 @@ class TestPipeline(object):
 
 
 class TestData(object):
-    def append_config(config, data):
-        return data + [config["append"]]
-
     pipeline = {100: append_config}
 
     def test_modules_can_use_config_data(self):

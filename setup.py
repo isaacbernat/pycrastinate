@@ -12,8 +12,9 @@ setuptools.setup(
     url="https://github.com/isaacbernat/pycrastinate",
     license="None",
     description="Keep your TODO, FIXME, etc. under control by triggering actions, generating reports, date/author/custom filtering, automated e-mails and more",
-    keywords = ["todo", "fixme", "xxx", "comments", "extract", "clean", "report", "creep", "git"],
-    classifiers = [
+    keywords=["todo", "fixme", "xxx", "comments", "extract", "clean",
+              "report", "creep", "git"],
+    classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
@@ -32,7 +33,7 @@ setuptools.setup(
         "Topic :: Software Development :: Version Control",
         "Topic :: Utilities",
         ],
-    long_description = """\
+    long_description="""\
 Pycrastinate
 =======================
 **TODO less, DO more**: *Keep your code clean without changing the way you code.*

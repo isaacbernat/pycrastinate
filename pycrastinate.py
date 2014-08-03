@@ -9,6 +9,7 @@ def run(pipeline, config, enclose):
     return reduce(lambda results, func: enclose(func, (config, results)),
                   OrderedDict(sorted(pipeline.items())).values(), [])
 
+
 def pycrastinate(full_path):
     sys.path.append(os.path.dirname(os.path.expanduser(full_path)))
     _cfg_name = full_path.split("/")[-1].split(".")[0]

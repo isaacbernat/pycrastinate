@@ -9,7 +9,7 @@ def nested_report(data, table_bp, columns, HTMLise, depth=2):
         yield table_bp
         for line in data:
             tds = ["<td>{}</td>".format(el) for el in
-                  [HTMLise(line=line, col=col) for col in columns]]
+                   [HTMLise(line=line, col=col) for col in columns]]
             yield "<tr>{}</tr>".format("".join(tds))
         yield "<tbody></table>"
     else:
@@ -19,7 +19,7 @@ def nested_report(data, table_bp, columns, HTMLise, depth=2):
                 chain.from_iterable(
                     repeat(el, 1) if isinstance(el, str)
                     else el for el in nested_report(
-                        val, table_bp, columns, HTMLise, depth+1)))
+                        val, table_bp, columns, HTMLise, depth + 1)))
 
 
 def file_path_to_url(file_path, line_count, config):

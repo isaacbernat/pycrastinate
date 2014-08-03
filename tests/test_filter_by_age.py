@@ -58,6 +58,5 @@ class TestFilterByAge(object):
 
     @patch('datetime.date', MutableDate)
     def test_by_default_does_not_filter(self):
-        from datetime import date
         res = list(filter_by_age({}, data))
         nt.assert_equals(len(res), len(data))

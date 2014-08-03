@@ -37,7 +37,7 @@ def process_blame_lines(pi):
             date = datetime.date(
                 *[int(d) for d in re.search(regex["date"], blame).groups()])
         except AttributeError:
-            #not committed, so no commit date and we skip it
+            # not committed, so no commit date and we skip it
             continue
         code = u"".join(blame.split(")")[1:]).strip()
         yield {
