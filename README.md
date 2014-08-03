@@ -2,7 +2,11 @@ Pycrastinate
 ============
 Tired of `TODO` from people who have not touched that code in years? What about `FIXME`?
 
-Pycrastinate is a **language-agnostic** tool that helps you keep your codebase (whether it is legacy or new) under control in a transparent way (i.e. without interfering with your coding).
+Pycrastinate is a **language-agnostic** tool that helps you keep your codebase (whether it is legacy or new) under control in a transparent way (i.e. without interfering with the way you program).
+
+This tool empowers you to find TODOs (or whatever else you want) in your code; extract/create metadata (e.g. when the TODO lines were committed, the e-mail of the committer, etc.); filter them out according to any criteria (you can feed it with your own lambda functions, e.g. commits less than 15 days old); trigger actions (e.g. throw an exception to break your CI (Continuous Integration) system, send an e-mail to repo owners/committers/etc.); perform custom multi-level aggregation (e.g. email > repo); generate human readable reports (HTML, console friendly txt) and more.
+
+The main goal is to aid in detection, handling and prioritisation of FIXMEs and other potentially hacky code in repositories before it is too late (i.e. other code starts relying on them, developers forget what they really meant/which issues addressed, etc.)
 
 Requirements
 ------------
@@ -15,7 +19,7 @@ Installation
 
 or
 
-- Get it from pypi `pip install pycrastinate`
+- Get it from pypi `pip install pycrastinate` (may not be the latest version)
 
 Usage
 -----
@@ -29,7 +33,7 @@ pycrastinate("full_path_to_your_config_file/config_name.py")
 ```
 
 ### Dive in
-Pycrastinate was featured in a 25-minute talk in [PyCon Sweden 2014](http://2014.pycon.se/). You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://github.com/isaacbernat/pycrastinate/blob/master/docs/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples.
+Pycrastinate was featured in a 25-minute talk in [PyCon Sweden 2014](http://2014.pycon.se/). You can view the original slides [on your browser here](http://prezi.com/47crucgh9ukr/?utm_campaign=share&utm_medium=copy&rc=ex0share) or [on PDF here](https://github.com/isaacbernat/pycrastinate/blob/master/docs/PycrastinatePyConSweden2014.pdf). There you can find real use-case examples. There is also a rather improvised [5-minute lightning talk](http://youtu.be/C_GBFxt_3s0?t=16m27s) the author gave on the topic at [PyData Berlin 2014](pydata.org/berlin2014/) and [EuroPython 2014](https://ep2014.europython.eu/en/).
 
 ### Tune it
 Create your own config file. Change the `root_paths` for whichever paths hold the files you want to analyse, the `file_sufixes` to include only those that you want (e.g. only python files), the `tokens` that should be considered (e.g. `TODO`), their case-sensitivity, etc. and then store it on the root path for pycrastinate. The config name must not have any `.` besides de final `.py` and you can use it by running `python pycrastinate.py path_to_you_config/your_config_name.py`
