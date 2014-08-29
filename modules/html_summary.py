@@ -26,13 +26,12 @@ def file_path_to_url(file_path, line_count, config):
     config_fpu = config.get("file_path_url", {})
     if not config_fpu:
         return file_path
-    else:
-        base = config_fpu["base_url"]
-        branch = config_fpu.get("branch", "master")
-        num = line_count if config_fpu.get("add_line", True) else 0
-        file_path += '#L{}'.format(num)
-        url_path = "/".join([base, branch, file_path])
-        return "<a href='{}'>{}</a>".format(url_path, file_path)
+    base = config_fpu["base_url"]
+    branch = config_fpu.get("branch", "master")
+    num = line_count if config_fpu.get("add_line", True) else 0
+    file_path += '#L{}'.format(num)
+    url_path = "/".join([base, branch, file_path])
+    return "<a href='{}'>{}</a>".format(url_path, file_path)
 
 
 def HTMLise_func(config, line, col):
@@ -53,13 +52,12 @@ def html_summary(config, data):
     HTMLise = partial(HTMLise_func, config=config)
     css = '<style type="text/css">{}</style>'.format(css_rules)
     html_start = ["<html><head>{}</head><body><h1>{}</h1>".format(css, title)]
-    html_end = ["</body></html>"]
     if config.get("timestamp", True):
         html_start.append("<p>Generated at: {}</p>".format(datetime.now()))
     table_bp = "<table><thead><tr>{}</tr></thead><tbody>".format("".join(
         ("<th>{}</th>".format(col) for col in columns)))
     report = chain([html_start],
                    nested_report(data, table_bp, columns, HTMLise),
-                   [html_end])
+                   [["</body></html>"]])
     return chain.from_iterable(repeat(el, 1) if isinstance(el, str)
                                else el for el in report)

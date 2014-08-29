@@ -6,8 +6,8 @@ def nested_report(config, data, depth=0):
     """Assumes that all levels are nested dicts until a list of dicts"""
     ind = depth * config.get("indent", "  ")
     if isinstance(data, list):
-        max_width = config["max_width"]
-        col_separator = config["column_separator"]
+        max_width = config.get("max_width", 80)
+        col_separator = config.get("column_separator", "  ")
         col_order = config["columns"]
         for line in data:
             str_attrs = [str(el) for el in (line[attr] for attr in col_order)]
@@ -23,16 +23,12 @@ def nested_report(config, data, depth=0):
 
 def text_summary(config, data):
     config = config.get(__name__.split(".")[-1], {})
-    config["indent"] = config.get("indent", "  ")
-    config["column_separator"] = config.get("column_separator", "  ")
-    config["max_width"] = config.get("max_width", 80)
-    hr = "=" * config["max_width"]
     config["columns"] = config.get(
         "columns", ["token", "line_count", "file_path", "code"])
     column_order = " > ".join(config["columns"])
     if config.get("timestamp", True):
         column_order += "\nGenerated at: {}".format(datetime.now())
-    column_names = [hr, column_order, hr]
-    report = chain([column_names], nested_report(config, data))
+    hr = "=" * config["max_width"]
+    report = chain([hr, column_order, hr], nested_report(config, data))
     return chain.from_iterable(repeat(el, 1) if isinstance(el, str)
                                else el for el in report)
