@@ -25,10 +25,10 @@ def process_blame_lines(pi):
     filename = code_file.split("/")[-1]
     pathname = code_file.split(filename)[0]
     os.chdir(pathname)
-    lines_text = "".join(" -L {n},{n}".format(n=nu) for nu in line_numbers)
-    blames = subprocess.Popen("git blame -e {} {}".format(
-        filename, lines_text), stdout=subprocess.PIPE,
-        shell=True).stdout.read().decode("utf-8").split("\n")
+    lines_text = ["-L {n},{n}".format(n=nu) for nu in line_numbers]
+    blames = [subprocess.Popen("git blame -e {} {}".format(
+        filename, line_text), stdout=subprocess.PIPE,
+        shell=True).stdout.read().decode("utf-8") for line_text in lines_text]
     os.chdir(init_dir)
     for blame, line in zip(blames, line_numbers):
         email = re.search(regex["email"], blame)
@@ -47,7 +47,6 @@ def process_blame_lines(pi):
             "email": email,
             "line_count": line,
             "token": re.search(regex["token"], code).group(), }
-
 
 ex.mod_name = __name__
 ex.prepare_regexes = prepare_regexes
