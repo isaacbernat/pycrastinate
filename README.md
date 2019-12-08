@@ -1,5 +1,17 @@
 Pycrastinate
 ============
+Disclaimer
+----------
+This is a companion repository to a PyCon Sweden 2014 talk which was last updated June 2015. At that point, the main code bases I worked on changed. TODOs were not allowed in the code anymore. Because of this, I stopped development of this project. Therefore, the contents here do not necessarily represent my current view or the way I would approach it today (e.g. supporting both Python 2 and 3).
+
+For a more recent talk (with a video recording) check [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise) presented at PyCon Sweden 2019. You'll learn 10+ optimisation techniques applicable in a wide variety of situations and see how Python performance compares to C++.
+
+Content
+-------
+### Abstract (50-word version)
+Pycrastinate is a language-agnostic tool to handle TODOs. Its purpose is to list, process, filter, sort and report TODOs from repositories. E.g. automatically create and send a report of >60 days old FIXMEs by git commiter for critical repositories on branch master, so one may act on them.
+
+### Description
 Tired of `TODO` from people who have not touched that code in years? What about `FIXME`?
 
 Pycrastinate is a **language-agnostic** tool that helps you keep your codebase (whether it is legacy or new) under control in a transparent way (i.e. without interfering with the way you program).
